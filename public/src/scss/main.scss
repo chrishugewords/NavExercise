@@ -13,7 +13,7 @@ body {
   text-indent: 0;
 }
 
-ul {
+ul, li {
   /*Strip the ul of padding and list styling*/
   list-style-type: none;
   margin: 0;
@@ -26,32 +26,39 @@ ul {
   padding: 0;
   margin: 0;
   display: block;
-  position: fixed;
   top: 0;
   background-color: $magenta;
   width: 100%;
   z-index: 2;
+  padding: 0;
+
   /* mobile styles */
   @media (min-width:$break) {
+    position: relative;
     /* desktop styles */
   }
 }
 
 .nav-logo-link {
   /* global styles */
-  display: inline-block;
+
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
+    display: inline-block;
+    //todo figure out why this has to be 23
+    margin: 23px 24px;
   }
+
 }
 
 .nav-logo-img {
   /* global styles */
-  display: inline-block;
   /* mobile styles */
   @media (min-width:$break) {
+
     /* desktop styles */
+   
   }
 }
 
@@ -61,11 +68,13 @@ ul {
   display: block;
   /* mobile styles */
   width: 280px;
+  font-size: 21px;
+  font-family: 'HUGEAvantGardeBold';
   @media (min-width:$break) {
     /* desktop styles */
-    float: left;
-    position: relative;
-    width: 100%;
+    display: inline-block;
+    width: auto;
+    position: absolute;
   }
 
 }
@@ -77,68 +86,139 @@ ul {
   /* mobile styles */  
   width: 100%;
   @media (min-width:$break) {
-  /* desktop styles */    
+    /* desktop styles */
+    position: relative;    
+    display: inline-block;
     width: auto;
-    float: left;
+  }
+}
+
+// all level nav links
+.main-nav-l1-link, .main-nav-l2-link {
+  /* global styles */  
+  text-decoration: none;
+  /* mobile styles */  
+  @media (min-width:$break) {
+    /* desktop styles */  
+    
   }
 }
 
 // top level links
 .main-nav-l1-link {
   /* global styles */  
-  display: block;
   /* mobile styles */  
   @media (min-width:$break) {
     /* desktop styles */  
+    color: $white;
+    display: inline-block;
+    padding: 24px;
+    &:hover {
+      background-color: $white;
+      color: $magenta;
+    }
+    
   }
 }
 
 .main-nav-l2-nav {
   /* global styles */
-
+  font-family: 'Galaxie';
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
+    position: absolute;
+    top: 66px;
+    left: 0;
+    background-color: $white;
+    /* set up slide-down */
     max-height: 0;
     overflow: hidden;
+    -webkit-transition: max-height 0.8s;
+    transition: max-height 0.8s;
   }
-
 }
+
+
 .main-nav-l2-item {
   /* global styles */
 
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
+    width: 100%;
   }
 }
 .main-nav-l2-link {
   /* global styles */
-
+  display: block;
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
+    font-size: 16px;
+    padding: 0 24px;
+    color: $black;
+    width: auto;
+    white-space: nowrap;    
+    line-height: 48px;
+    &:hover {
+      background-color: $grey;
+      color: $magenta;
+    }
   }
 }
 
+
+
+// begin expanded nav
+.selected {
+  /* global styles */
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+    
+  }
+}
+.selected > .main-nav-l1-link {
+  /* global styles */
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+    background-color: $white;
+    color: $magenta;
+  }
+}
+.selected > .main-nav-l2-nav {
+  /* global styles */
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+    background-color: $white;
+    top: 66px;
+    // slide down
+    max-height: 500px;
+    
+
+  }
+}
+// end expanded nav
 .hero-container {
   /* global styles */  
   @extend %hide-text;
   background-image: url('/images/background-image.jpg');
-  background-color: #000;
   background-size: cover;
+  background-color: $white;
   display: block;
   width: 100%;
   height: 100%;
-
+  position: absolute;
+  z-index: -1;
   /* mobile styles */   
 
   @media (min-width: $break) {
     /* desktop styles */
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
+    
+    
   }
   
 }
@@ -150,25 +230,59 @@ ul {
     z-index: 0;
     /* desktop styles */
   }
-  
-  > h1 {
+}
+
+.main-content-header {
   /* global styles */  
-
-  /* mobile styles */   
-
-    @media (min-width:$break) {
+  margin: 50px 0px;
+  font-family: 'HUGEAvantGardeBold';
+  color: $black;
+  font-size: 44px;
+  /* mobile styles */ 
+  background-color: $white;  
+  @media (min-width:$break) {
     /* desktop styles */
+    background-color: transparent;
+    color: $white;
+    width: 100%;
+    margin: 0;
+    font-size: 120px;
+    text-align: center;
+    color: $white;
+    > h1 {
+      font-size: 120px;
+      margin-top: 240px;
+      padding-bottom: -120px;
+      -webkit-transform: translate(0, -50%);
+      transform: translate(0, -50%);
     }
-    
   }
+}
+
+.main-content-text {
+  /* global styles */  
+  font-family: 'Galaxie';
+  color: $black;
+  background-color: $white;
+  width: 100%;
+  /* mobile styles */   
   > p {
-    /* global styles */  
-
-    /* mobile styles */   
-
-    @media (min-width:$break) {
-      /* desktop styles */
-    }
-    
+    margin-top: 0px;
+    font-size: 14px;
+    line-height: 1.8;
   }
+  @media (min-width:$break) {
+    /* desktop styles */
+    padding: 60px 0;
+    text-align: center;
+    > p {
+      display: block;
+      margin: 0 auto;
+      text-align: left;
+      max-width: 968px;
+      font-size: 24px;
+      line-height: 1.5;
+    }
+  }
+  
 }
