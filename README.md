@@ -41,6 +41,11 @@ cd NavExercise
 npm install
 npm start
 ```
+then open another bash tab...
+```
+gulp
+```
+this will watch sass and js assets. 
 
 ## Design Specifications
 

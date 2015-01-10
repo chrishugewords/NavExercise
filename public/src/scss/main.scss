@@ -1,8 +1,9 @@
-@import "fonts.css";
+@import "fonts";
+@import "colors";
 
 body {
-  background: #ec008c;
-  color: #fff;
+  background: $magenta;
+  color: $white;
 }
 
 h1 {
