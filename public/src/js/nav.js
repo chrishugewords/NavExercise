@@ -7,9 +7,12 @@ var _defaults = {
     'appendTo'       : 'nav',
     'elId'           : 'mainNav',
     'className'      : 'main-nav',
+    'navOpenClass'   : 'nav-open',
     'selectedClass'  : 'selected',
-    'subNavParentClass'   : 'has-sub-nav',
-    'bodyNavClass' : 'nav-open'
+    'subParentClass' : 'has-sub-nav',
+    'navBurgerClass' : 'nav-burger',
+    'navBurgerId'    : 'navBurger',
+    'bodySubNavClass': 'subnav-open'
 };
 
 function Nav (options, data) {
@@ -18,8 +21,11 @@ function Nav (options, data) {
     this.targetEl = document.getElementById(this.options.appendTo);
     
     if (this.targetEl && data && data.items) {
+        this.body = document.getElementsByTagName('body')[0];
         this.navEl = this.createNav(data.items, 1);
         this.navEl.id = this.options.elId;
+        this.burgerBtn = this.createHamburger();
+        this.targetEl.appendChild(this.burgerBtn);
         this.targetEl.appendChild(this.navEl);
     }
 
@@ -40,6 +46,36 @@ _.extend(Nav.prototype, {
         return ul;
     },
 
+    createHamburger : function () {
+        
+        var self = this;
+        var burger = document.createElement('a');
+        var topBun = document.createElement('span');
+        var meat = document.createElement('span');
+        var bottomBun = document.createElement('span');
+        
+        topBun.className = 'top bun';
+        meat.className = 'meat';
+        bottomBun.className = 'bottom bun';
+        burger.appendChild(topBun);
+        burger.appendChild(meat);
+        burger.appendChild(bottomBun);
+        burger.id = this.options.navBurgerId;
+        burger.className = this.options.navBurgerClass;
+        
+        burger.addEventListener('click', function (event) {
+            self.onBurgerClicked(event);
+        });
+        
+        return burger;
+    
+    },
+
+    onBurgerClicked : function (event) {
+        helpers.toggleClass(this.targetEl, this.options.navOpenClass);
+        helpers.toggleClass(this.body, this.options.navOpenClass);
+    },
+
     createNavItem : function (data, level) {
         
         var self = this;
@@ -54,7 +90,7 @@ _.extend(Nav.prototype, {
 
         if (data.items && data.items.length) {
             li.appendChild(this.createNav(data.items, level + 1));
-            helpers.addClass(li, this.options.subNavParentClass);
+            helpers.addClass(li, this.options.subParentClass);
             a.addEventListener('click', function (event) {
                 self.onSubNavClicked(event);
             });
@@ -68,20 +104,20 @@ _.extend(Nav.prototype, {
         var hasSubs; 
         var selectedClass = this.options.selectedClass;
         var parentUl = event.target.parentNode;
-        var body = document.getElementsByTagName('body')[0];
+        
         event.preventDefault();
 
         if (helpers.hasClass(parentUl, selectedClass)) {
-            helpers.removeClass(body, this.options.bodyNavClass);
+            helpers.removeClass(this.body, this.options.bodySubNavClass);
             helpers.removeClass(parentUl, selectedClass);   
             return false;
         }
-        helpers.addClass(body, this.options.bodyNavClass);
-        hasSubs = this.targetEl.getElementsByClassName(this.options.subNavParentClass);
+        
+        hasSubs = this.targetEl.getElementsByClassName(this.options.subParentClass);
         _.each(hasSubs, function (li) {
             helpers.removeClass(li, selectedClass);
         });
-        
+        helpers.addClass(this.body, this.options.bodySubNavClass); 
         helpers.addClass(parentUl, this.options.selectedClass);
 
         return false;

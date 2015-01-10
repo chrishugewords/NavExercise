@@ -1,11 +1,10 @@
-//@import "normalize";
 @import "fonts";
 @import "colors";
 @import "mixins";
 
 $break: 768px;
 $navPaddingBreak: 920px;
-
+$maxCopyWidth: 968px;
 
 body {
   background: $magenta;
@@ -33,6 +32,7 @@ ul, li {
   width: 100%;
   z-index: 2;
   padding: 0;
+  position: fixed;
 
   /* mobile styles */
   @media (min-width:$break) {
@@ -43,15 +43,31 @@ ul, li {
 
 .nav-logo-link {
   /* global styles */
-
+  position: absolute;
+  display: block;
+  margin-top: 20px;
+  margin-left: -100%;
+  -webkit-transition: margin-left 0.5s;
+  transition: margin-left 0.5s;
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
+    position: relative;
     display: inline-block;
-    //todo figure out why this has to be 23
     margin: 23px 24px;
   }
 
+}
+
+.nav-open {
+  >.nav-logo-link {
+     /* global styles */
+    /* mobile styles */
+    margin-left: 24px;
+    @media (min-width:$break) {
+      /* desktop styles */
+    }
+  }
 }
 
 .nav-logo-img {
@@ -67,18 +83,37 @@ ul, li {
 // top level ul
 .main-nav-l1-nav {
   /* global styles */
-  display: inline-block;
+  font-family: 'HUGEAvantGardeBold';  
   /* mobile styles */
   font-size: 21px;
-  font-family: 'HUGEAvantGardeBold';
+  position: fixed;
+  background-color: $white;
+  display: block;
+  margin-left: -100%;
+
   @media (min-width:$break) {
     /* desktop styles */
-    display: inline-block;
+    margin-left: 0;
     position: absolute;
+    display: inline-block;
+    background-color: transparent;
   }
 
-
 }
+
+// top level ul open 
+.nav-open {
+  .main-nav-li-nav {
+      /* global styles */
+
+      /* mobile styles */
+      @media (min-width:$break) {
+        /* desktop styles */
+      }
+  }
+}
+
+
 
 // top level li
 .main-nav-l1-item {
@@ -254,6 +289,7 @@ ul, li {
     text-align: center;
     color: $white;
     > h1 {
+      text-align: center;
       font-size: 120px;
     }
   }
@@ -279,7 +315,7 @@ ul, li {
       display: block;
       margin: 0 auto;
       text-align: left;
-      max-width: 968px;
+      max-width: $maxCopyWidth;
       font-size: 24px;
       line-height: 1.5;
     }
@@ -308,15 +344,11 @@ ul, li {
     /* desktop styles */
   }
 }
-.nav-open {
-  >.nav-overlay {
+.subnav-open {
+  > .nav-overlay {
     /* global styles */
 
-    // fade in
-    visibility: visible;
-    opacity: 1;
-    -webkit-transition: opacity 1s linear;
-    transition: opacity 1s linear;
+    @extend %overlay-fadein;
     /* mobile styles */
 
     @media (min-width:$break) {
@@ -324,4 +356,78 @@ ul, li {
     }
   }
   
+}
+
+.nav-burger {
+  /* mobile styles */
+  z-index: 99;
+  cursor: pointer;
+
+  width: 20px;
+  
+  position: absolute;
+  top: 20px;
+  margin-left: 0;
+  left: 20px;
+  
+  $slideDuration: 0.4s;
+  $slideEase: ease-in-out;
+  -webkit-transition-property: left, margin-left;
+  -webkit-transition-duration: $slideDuration;
+  -webkit-transition-timing-function: $slideEase;
+  transition-property: left, margin-left;
+  transition-duration: $slideDuration;
+  transition-timing-function: $slideEase;
+
+  > span {
+    width: 100%;
+    height: 3px;
+    background-color: $white;
+    display: block;
+  }
+  > .bun {
+    $duration: .25s;
+    $delay: .15s;
+    $ease: ease-in;
+    -webkit-transition: -webkit-transform $duration $ease $delay;
+    transition: transform $duration $ease $delay;
+  }
+  > .meat {
+    $duration: .15s;
+    $delay: .35s;
+    $ease: ease-in;
+    -webkit-transition: opacity $duration $ease $delay;
+    transition: opacity $duration $ease $delay;
+    opacity: 1;
+    margin: 4px 0;
+  }
+  
+  @media (min-width:$break) {
+    /* desktop styles */
+    display: none;
+  }
+}
+
+.nav-open >.nav-burger {
+  
+  left: 100%;
+  margin-left: -40px;
+
+  $bunScale:1.2; 
+
+  > .top {
+    $rotate: 133deg; 
+    $translateX: 3px; 
+    $translateY: -5px; 
+    @include rotateBurgerBun($rotate, $translateX, $translateY, $bunScale);
+  }
+  > .bottom {
+    $rotate: 37deg; 
+    $translateX: -4px; 
+    $translateY: -7px; 
+    @include rotateBurgerBun($rotate, $translateX, $translateY, $bunScale);
+  }
+  > .meat {
+    opacity: 0;
+  }
 }

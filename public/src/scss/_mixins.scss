@@ -4,6 +4,14 @@
     text-indent: -9999em;
 }
 
+%overlay-fadein {
+    // fade in
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+
 @mixin clearfix {
     zoom:1;
     &:before, &:after {
@@ -17,3 +25,7 @@
     }
 }
 
+@mixin rotateBurgerBun($rotate, $translateX, $translateY, $scale) {
+    -webkit-transform: rotate($rotate) translate($translateX, $translateY) scale($scale);
+    transform: rotate($rotate) translate($translateX, $translateY) scale($scale);
+}

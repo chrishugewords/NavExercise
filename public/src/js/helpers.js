@@ -34,6 +34,14 @@ module.exports = {
         var elClasses = el.className.split(' ');
         return elClasses.indexOf(className) !== -1;
     },
+
+    toggleClass : function (el, className) {
+        if (this.hasClass(el, className)) {
+            this.removeClass(el, className);
+        } else {
+            this.addClass(el, className);
+        }
+    },
     
     addClass : function (el, className) {
         var elClass = el.className;
