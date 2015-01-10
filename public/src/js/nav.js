@@ -3,20 +3,24 @@
 var _ = require('underscore');
 var helpers = require('./helpers');
 
-function Nav (options, data) {
+var _defaults = {
+    'appendTo'       : 'nav',
+    'elId'           : 'mainNav',
+    'className'      : 'main-nav',
+    'selectedClass'  : 'selected',
+    'subNavParentClass'   : 'has-sub-nav',
+    'bodyNavClass' : 'nav-open'
+};
 
-    var _defaults = {
-        'appendTo' : 'nav',
-        'el' : 'mainNav',
-        'className' : 'main-nav',
-        'selectedClass' : 'selected',
-        'hasSubNavClass'   : 'has-sub-nav'
-    };
+function Nav (options, data) {
 
     this.options = _.extend(_defaults, options);
     this.targetEl = document.getElementById(this.options.appendTo);
+    
     if (this.targetEl && data && data.items) {
-        this.targetEl.appendChild(this.createNav(data.items, 1));
+        this.navEl = this.createNav(data.items, 1);
+        this.navEl.id = this.options.elId;
+        this.targetEl.appendChild(this.navEl);
     }
 
 }
@@ -50,7 +54,7 @@ _.extend(Nav.prototype, {
 
         if (data.items && data.items.length) {
             li.appendChild(this.createNav(data.items, level + 1));
-            helpers.addClass(li, this.options.hasSubNavClass);
+            helpers.addClass(li, this.options.subNavParentClass);
             a.addEventListener('click', function (event) {
                 self.onSubNavClicked(event);
             });
@@ -64,15 +68,16 @@ _.extend(Nav.prototype, {
         var hasSubs; 
         var selectedClass = this.options.selectedClass;
         var parentUl = event.target.parentNode;
-        
+        var body = document.getElementsByTagName('body')[0];
         event.preventDefault();
 
         if (helpers.hasClass(parentUl, selectedClass)) {
+            helpers.removeClass(body, this.options.bodyNavClass);
             helpers.removeClass(parentUl, selectedClass);   
             return false;
         }
-
-        hasSubs = this.targetEl.getElementsByClassName(this.options.hasSubNavClass);
+        helpers.addClass(body, this.options.bodyNavClass);
+        hasSubs = this.targetEl.getElementsByClassName(this.options.subNavParentClass);
         _.each(hasSubs, function (li) {
             helpers.removeClass(li, selectedClass);
         });
