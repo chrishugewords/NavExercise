@@ -1,19 +1,174 @@
+//@import "normalize";
 @import "fonts";
 @import "colors";
+@import "mixins";
+
+$break: 768px;
 
 body {
   background: $magenta;
   color: $white;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
 }
 
-h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+ul {
+  /*Strip the ul of padding and list styling*/
+  list-style-type: none;
   margin: 0;
-  font: 20vmin/1 HUGEAvantGardeBold;
-  letter-spacing: -0.06em;
-  text-align: center;
+  padding :0;
+}
+
+// nav wrapper
+.nav {
+  /* global styles */
+  padding: 0;
+  margin: 0;
+  display: block;
+  position: fixed;
+  top: 0;
+  background-color: $magenta;
+  width: 100%;
+  z-index: 2;
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+  }
+}
+
+.nav-logo-link {
+  /* global styles */
+  display: inline-block;
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+  }
+}
+
+.nav-logo-img {
+  /* global styles */
+  display: inline-block;
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+  }
+}
+
+// top level ul
+.main-nav-l1-nav {
+  /* global styles */
+  display: block;
+  /* mobile styles */
+  width: 280px;
+  @media (min-width:$break) {
+    /* desktop styles */
+    float: left;
+    position: relative;
+    width: 100%;
+  }
+
+}
+
+// top level li
+.main-nav-l1-item {
+  /* global styles */  
+  display: block;
+  /* mobile styles */  
+  width: 100%;
+  @media (min-width:$break) {
+  /* desktop styles */    
+    width: auto;
+    float: left;
+  }
+}
+
+// top level links
+.main-nav-l1-link {
+  /* global styles */  
+  display: block;
+  /* mobile styles */  
+  @media (min-width:$break) {
+    /* desktop styles */  
+  }
+}
+
+.main-nav-l2-nav {
+  /* global styles */
+
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+    max-height: 0;
+    overflow: hidden;
+  }
+
+}
+.main-nav-l2-item {
+  /* global styles */
+
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+  }
+}
+.main-nav-l2-link {
+  /* global styles */
+
+  /* mobile styles */
+  @media (min-width:$break) {
+    /* desktop styles */
+  }
+}
+
+.hero-container {
+  /* global styles */  
+  @extend %hide-text;
+  background-image: url('/images/background-image.jpg');
+  background-color: #000;
+  background-size: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  /* mobile styles */   
+
+  @media (min-width: $break) {
+    /* desktop styles */
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+  }
+  
+}
+
+.main-content {
+  /* global styles */
+  /* mobile styles */
+  @media (min-width:$break) {
+    z-index: 0;
+    /* desktop styles */
+  }
+  
+  > h1 {
+  /* global styles */  
+
+  /* mobile styles */   
+
+    @media (min-width:$break) {
+    /* desktop styles */
+    }
+    
+  }
+  > p {
+    /* global styles */  
+
+    /* mobile styles */   
+
+    @media (min-width:$break) {
+      /* desktop styles */
+    }
+    
+  }
 }
