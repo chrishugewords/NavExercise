@@ -4,6 +4,8 @@
 @import "mixins";
 
 $break: 768px;
+$navPaddingBreak: 920px;
+
 
 body {
   background: $magenta;
@@ -65,7 +67,7 @@ ul, li {
 // top level ul
 .main-nav-l1-nav {
   /* global styles */
-  display: block;
+  display: inline-block;
   /* mobile styles */
   font-size: 21px;
   font-family: 'HUGEAvantGardeBold';
@@ -74,6 +76,7 @@ ul, li {
     display: inline-block;
     position: absolute;
   }
+
 
 }
 
@@ -109,6 +112,12 @@ ul, li {
     color: $white;
     display: inline-block;
     padding: 24px;
+    @media (max-width: $navPaddingBreak) {
+        padding-left: 12px;
+        padding-right: 12px;
+        -webkit-transition: padding .5s;
+        transition: padding .5s;
+    }
     &:hover {
       background-color: $white;
       color: $magenta;
@@ -142,7 +151,6 @@ ul, li {
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
-    width: 100%;
   }
 }
 .main-nav-l2-link {
