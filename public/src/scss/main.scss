@@ -7,8 +7,8 @@ $navPaddingBreak: 920px;
 $maxCopyWidth: 968px;
 
 body {
-  background: $magenta;
-  color: $white;
+  background: $white;
+  color: $black;
   padding: 0;
   margin: 0;
   text-indent: 0;
@@ -307,35 +307,38 @@ ul, li {
   /* global styles */  
   @extend %hide-text;
   background-image: url('/images/background-image.jpg');
+  background-repeat: no-repeat;
   background-size: cover;
-  background-color: $white;
   display: block;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
   /* mobile styles */   
+  background-position: 0 center;
+  position: relative;
+  margin-top: 55px;
+  height: 240px;
+
 
   @media (min-width: $break) {
     /* desktop styles */
-    
-    
+    background-position: center center;
+    margin-top: 0;
+    height: 640px;
+    position: absolute;
+    z-index: -1;
   }
   
 }
-
 .main-content {
   /* global styles */
   /* mobile styles */
   @media (min-width:$break) {
-    z-index: 0;
     /* desktop styles */
+    overflow-y: auto;
   }
 }
 .nav-open > .main-content-wrapper > .main-content {
   /* global styles */
   /* mobile styles */
-  overflow-y: hidden;
   @media (min-width:$break) {
     /* desktop styles */
     overflow-y: scroll;
@@ -344,26 +347,38 @@ ul, li {
 
 .main-content-header {
   /* global styles */  
-  margin: 50px 0px;
   font-family: 'HUGEAvantGardeBold';
+  padding: 0;
+  /* mobile styles */
+  margin: 50px 0;
   color: $black;
   font-size: 44px;
-  /* mobile styles */ 
-  background-color: $white;  
-  @media (min-width:$break) {
-    /* desktop styles */
-    background-color: transparent;
-    color: $white;
-    width: 100%;
+  > h1 {
+    font-size: 1em;
+    text-align: left;
     margin: 0;
-    font-size: 120px;
-    text-align: center;
+    margin-left: 24px;
+  }
+  @media (min-width:$break) {
+    /* desktop styles */ 
+    margin: 0 auto;
     color: $white;
+    font-size: 120px;
+    width: 100%;
+    display: table;
+    min-height: 640px;
+    text-align: center;
+    font-size: 120px;
+    max-width: 967px;
     > h1 {
+      font-size: 1em;
       text-align: center;
-      font-size: 120px;
+      margin: 0 auto;
+      display: table-cell;
+      vertical-align: middle;
     }
   }
+
 }
 
 .main-content-text {
@@ -374,7 +389,8 @@ ul, li {
   width: 100%;
   /* mobile styles */   
   > p {
-    margin-top: 0px;
+    margin: 0 24px;
+    margin-right: 24px;
     font-size: 14px;
     line-height: 1.8;
   }
@@ -383,12 +399,12 @@ ul, li {
     padding: 60px 0;
     text-align: center;
     > p {
-      display: block;
       margin: 0 auto;
       text-align: left;
       max-width: $maxCopyWidth;
       font-size: 24px;
       line-height: 1.5;
+      padding: 0 24px;
     }
   }
   
