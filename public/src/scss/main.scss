@@ -5,6 +5,8 @@
 $break: 768px;
 $navPaddingBreak: 920px;
 $maxCopyWidth: 968px;
+$navOutDuration: 0.75s;
+$navOutEase: linear;
 
 body {
   background: $white;
@@ -98,8 +100,8 @@ ul, li {
   margin-top: 55px;
   margin-left: -100%;
   // slide-out stuff
-  -webkit-transition: 0.75s margin-left ease-in-out;
-  transition: 0.75s margin-left ease-in-out;
+  -webkit-transition: $navOutDuration margin-left $navOutEase;
+  transition: $navOutDuration margin-left $navOutEase;
   @media (min-width:$break) {
     /* desktop styles */
     position: absolute;
@@ -330,18 +332,28 @@ ul, li {
 }
 .main-content {
   /* global styles */
+  width: 100%;
+  position: relative;
   /* mobile styles */
+  // slide-out stuff 
+  -webkit-transition: 1s margin-left;
+  transition: 1s margin-left;
   @media (min-width:$break) {
     /* desktop styles */
+    -webkit-transition: none;
+    transition: none;
     overflow-y: auto;
   }
 }
 .nav-open > .main-content-wrapper > .main-content {
-  /* global styles */
-  /* mobile styles */
+  /* mobile slide out stuff */
+  position: absolute;
+  margin-left: 90%;
+
   @media (min-width:$break) {
     /* desktop styles */
-    overflow-y: scroll;
+    position: relative;
+    margin-left: 0;
   }
 }
 
