@@ -166,6 +166,7 @@ ul, li {
     color: $white;
     display: inline-block;
     padding: 24px;
+    // -- padding fix for small desktop, large tablet
     -webkit-transition: padding .5s;
     transition: padding .5s;
     @media (max-width: $navPaddingBreak) {
@@ -187,6 +188,43 @@ ul, li {
     background-color: $white;
     color: $magenta;
   }
+}
+
+// nav arrows for mobile
+.has-sub-nav > .main-nav-l1-link:after {
+  /* global styles */
+
+  /* mobile styles */
+  color: $magenta;
+  font-family: 'Galaxie';
+  content: '>';
+  font-size: 22px;
+  font-weight: bold;
+  position: absolute;
+  right: 24px;
+  
+  $rotate: 90deg;
+  $scale: 1.4;
+  -webkit-transform: rotate($rotate) scaleY($scale);
+  transform: rotate($rotate) scaleY($scale);
+  
+  $duration: .2s;
+  $ease: ease-in-out;
+  -webkit-transition: -webkit-transform $duration $ease;
+  transition: transform $duration $ease;
+
+  @media (min-width:$break) {
+    /* desktop styles */
+    display: none;
+  }
+}
+.selected > .main-nav-l1-link:after {
+  $rotate: 270deg;
+  $scale: 1.4;
+  $transX: 5px;
+  $transY: -4px;
+  -webkit-transform: rotate($rotate) scaleY($scale) translate($transX, $transY);
+  transform: rotate($rotate) scaleY($scale) translate($transX, $transY);
 }
 
 .main-nav-l2-nav {
@@ -226,10 +264,12 @@ ul, li {
 
 .main-nav-l2-item {
   /* global styles */
-
   /* mobile styles */
   @media (min-width:$break) {
     /* desktop styles */
+    &:first-child {
+      //margin-top: 12px; 
+    } 
   }
 }
 .main-nav-l2-link {
@@ -243,10 +283,8 @@ ul, li {
       color: $magenta;
   }
   /* mobile styles */
-  width: 100%;
   @media (min-width:$break) {
     /* desktop styles */
-    width: auto;
     white-space: nowrap;    
   }
 }
