@@ -12,6 +12,9 @@ var main = {
                 console.log('error getting json', err);
             } else {
                 root.nav = new Nav({}, data);
+                if ('ontouchstart' in document.documentElement) {
+                    root.nav.touchHack();
+                }
             }
         });
     }

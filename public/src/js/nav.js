@@ -21,7 +21,7 @@ function Nav (options, data) {
     this.targetEl = document.getElementById(this.options.appendTo);
     
     if (this.targetEl && data && data.items) {
-        this.body = document.getElementsByTagName('body')[0];
+        this.body = document.body;
         this.navEl = this.createNav(data.items, 1);
         this.navEl.id = this.options.elId;
         this.burgerBtn = this.createHamburger();
@@ -33,7 +33,6 @@ function Nav (options, data) {
 
 _.extend(Nav.prototype, {
 
-    
     createNav : function (items, level) {
         
         var ul = document.createElement('ul');        
@@ -121,6 +120,19 @@ _.extend(Nav.prototype, {
         helpers.addClass(parentUl, this.options.selectedClass);
 
         return false;
+    },
+    
+    /**
+     * fix for weird touch issue on iOs devices,
+     * add class .touch-scrollable to enable touch scrolling on elements
+     */
+    touchHack : function () {
+        document.body.addEventListener('touchmove', function (e) {
+            if (helpers.hasClass(document.body, 'nav-open')) {
+                e.preventDefault();
+            }
+        });
+        
     }
 
 });
