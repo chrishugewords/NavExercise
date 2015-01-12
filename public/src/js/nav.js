@@ -112,16 +112,60 @@ _.extend(Nav.prototype, {
             return false;
         }
         
-        hasSubs = this.targetEl.getElementsByClassName(this.options.subParentClass);
-        _.each(hasSubs, function (li) {
-            helpers.removeClass(li, selectedClass);
-        });
+        this.closeAllSubs(false);
+        
         helpers.addClass(this.body, this.options.bodySubNavClass); 
-        helpers.addClass(parentUl, this.options.selectedClass);
+        helpers.addClass(parentUl, selectedClass);
 
         return false;
     },
-    
+
+    /**
+     * close all subnavs by removing the class designated in this.options.subParentClass
+     * @param  {boolean} clearBody - if true, removes this.options.bodySubNavClass from the body
+     */
+    closeAllSubs : function (clearBody) {
+        
+        var hasSubs = this.targetEl.getElementsByClassName(this.options.subParentClass);
+        var selectedClass = this.options.selectedClass;
+        
+        _.each(hasSubs, function (li) {
+            helpers.removeClass(li, selectedClass);
+        });
+        
+        if (clearBody) {
+            helpers.removeClass(this.body, this.options.bodySubNavClass); 
+        }
+
+    },
+
+    /**
+     * closes all open navs and subnavs
+     */
+    closeAllNavs : function () {
+        this.closeAllSubs(true);
+        helpers.removeClass(this.targetEl, this.options.navOpenClass);
+        helpers.removeClass(this.body, this.options.navOpenClass);
+    },
+
+    /**
+     * listen to the overlays by className 
+     * removes open class from body and nav and selected class from any nav items with subnavs
+     * @param  {string} overlayClass - the class name of the overlays you want to listen to
+     */
+    bindOverlay : function (overlayClass) {
+        
+        var self = this;
+        var overlays = document.getElementsByClassName(overlayClass);
+      
+        _.each(overlays, function (overlay) {
+            overlay.addEventListener('click', function (event) {
+                self.closeAllNavs();
+            });
+        });
+       
+    },
+
     /**
      * fix for weird touch issue on iOs devices,
      * add class .touch-scrollable to enable touch scrolling on elements

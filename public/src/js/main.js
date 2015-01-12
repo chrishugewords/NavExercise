@@ -12,6 +12,7 @@ var main = {
                 console.log('error getting json', err);
             } else {
                 root.nav = new Nav({}, data);
+                root.nav.bindOverlay('nav-overlay');
                 if ('ontouchstart' in document.documentElement) {
                     root.nav.touchHack();
                 }
