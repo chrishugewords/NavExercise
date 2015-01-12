@@ -160,6 +160,24 @@ ul, li {
         margin-left: 0;
       }
     }
+
+    &:after {
+      /* global styles */
+      /* mobile styles */
+      position: absolute;
+      content: '© 2014 Huge. All Rights Reserved.';
+      padding-left: 96px;
+      bottom: 55px;
+      font-size: 12px;
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      line-height: 48px;
+      color: $black;
+      @media (min-width:$break) {
+        /* desktop styles */
+        display: none;
+      }
+      
+    }
 }
 
 
